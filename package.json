@@ -1,0 +1,27 @@
+{
+  "name": "osa3_puhelinluettelo",
+  "version": "1.0.0",
+  "description": "Puhelinluettelo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusifsalam/osa3_puhelinluettelo.git"
+  },
+  "author": "Yusif Salam-zade",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/yusifsalam/osa3_puhelinluettelo/issues"
+  },
+  "homepage": "https://github.com/yusifsalam/osa3_puhelinluettelo#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
