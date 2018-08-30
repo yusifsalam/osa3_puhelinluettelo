@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
+app.use(morgan('tiny'))
 app.use(bodyParser.json())
 
 let persons = [
@@ -57,7 +59,7 @@ app.delete('/api/persons/:id', (req, res) => {
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
-    console.log('body is', body)
+    // console.log('body is', body)
 
     if (body.name === undefined) {
         return res.status(400).json({ error: 'name must be unique' })
