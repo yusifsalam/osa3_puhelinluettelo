@@ -28,8 +28,7 @@ let persons = [
 ]
 
 const generateId = () => {
-    const maxId = persons.length > 0 ? persons.map(n => n.id).sort().reverse()[0] : 0
-    return maxId + 1 + Math.floor(Math.random()*1000)
+    return Math.floor(Math.random() * 10000000000)
 }
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
@@ -42,10 +41,10 @@ app.get('/api/persons', (req, res) => {
 app.get('/api/persons/:id', (req, res) => {
     const id = Number(req.params.id)
     const person = persons.find(person => person.id === id)
-    if (person){
+    if (person) {
         res.json(person)
     }
-    else{
+    else {
         res.status(404).end()
     }
 })
@@ -58,15 +57,27 @@ app.delete('/api/persons/:id', (req, res) => {
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
-    if (body.name === undefined){
-        return res.status(400).json({error: 'content missing'})
+    console.log('body is', body)
+
+    if (body.name === undefined) {
+        return res.status(400).json({ error: 'name must be unique' })
     }
+
+    if (body.number === undefined) {
+        return res.status(400).json({ error: 'number must be unique' })
+    }
+
+    const dupe = persons.find(person => person.name === body.name)
+    if (dupe) {
+        return res.status(400).json({ error: 'person already added' })
+    }
+
     const person = {
-        name : body.name,
-        number: body.number, 
+        name: body.name,
+        number: body.number,
         id: generateId()
     }
-    
+
     persons = persons.concat(person)
     res.json(person)
 })
