@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
 const url =
-  "mongodb://fullstack:{}}fullstack-phonebook";
+"mongodb:";
 mongoose.connect(
   url,
   { useNewUrlParser: true }
 );
+mongoose.Promise = global.Promise;
 
 const Person = mongoose.model("People", {
   name: String,
