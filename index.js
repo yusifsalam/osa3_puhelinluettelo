@@ -32,7 +32,6 @@ app.get('/api/persons', (req, res) => {
 })
 
 app.get('/api/persons/:id', (req, res) => {
-    // const id = Number(req.params.id)
     Person.findById(req.params.id)
         .then(person => {
             if (person) {
@@ -49,7 +48,6 @@ app.get('/api/persons/:id', (req, res) => {
 })
 
 app.delete('/api/persons/:id', (req, res) => {
-    // const id = Number(req.params.id)
     Person
         .findByIdAndRemove(req.params.id)
         .then(result => {
@@ -72,25 +70,25 @@ app.post('/api/persons', (req, res) => {
         return res.status(400).json({ error: 'number must be unique' })
     }
 
-    // const dupe = Person.find({name: body.name})
-    
-    // if (dupe) {
-    //     // return res.status(400).json({ error: 'person already added' })
-    //     res.json(dupe)
-    // }
-
-    const person = new Person({
-        name: body.name,
-        number: body.number,
-    })
-
-    person
-        .save()
-        .then(savedPerson => {
-            res.json(Person.format(savedPerson))
-        })
-        .catch(err =>{
-            console.log(err)
+    Person
+        .find({name: body.name})
+        .then(person => {
+            if (person.length > 0) {
+                return res.status(400).json({error: 'person already added'})
+            }
+            else{
+                const person = new Person({
+                    name: body.name,
+                    number: body.number,
+                })
+                person
+                    .save()
+                    .then(Person.format)
+                    .then(formattedPerson => {
+                        res.json(formattedPerson)
+                    })
+                    
+            }
         })
 })
 
