@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -6,11 +6,11 @@ const url = process.env.MONGODB_URI
 mongoose.connect(
   url,
   { useNewUrlParser: true }
-);
+)
 const PersonSchema = mongoose.Schema({
-  name: String, 
+  name: String,
   number: String
-});
+})
 
 PersonSchema.statics.format = function(person) {
   return {
@@ -20,7 +20,7 @@ PersonSchema.statics.format = function(person) {
   }
 }
 
-const Person = mongoose.model("People", PersonSchema);
+const Person = mongoose.model('People', PersonSchema)
 
 
 
